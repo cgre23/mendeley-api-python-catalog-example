@@ -14,7 +14,7 @@ config = {}
 
 if os.path.isfile(config_file): 
     with open('config.yml') as f:
-        config = yaml.load(f)
+        config = yaml.load(f, Loader=yaml.Loader)
 else:
     config['clientId'] = os.environ.get('MENDELEY_CLIENT_ID')
     config['clientSecret'] = os.environ.get('MENDELEY_CLIENT_SECRET')
@@ -25,4 +25,4 @@ session = mendeley.start_client_credentials_flow().authenticate()
 doi = args.doi
 
 doc = session.catalog.by_identifier(doi=doi, view='stats')
-print '"%s" has %s readers.' % (doc.title, doc.reader_count)
+print('"%s" has %s readers.' % (doc.title, doc.reader_count))
